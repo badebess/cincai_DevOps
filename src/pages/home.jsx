@@ -76,13 +76,6 @@ export default function Home() {
                     <CDBSidebarMenuItem>{">"}</CDBSidebarMenuItem>
                   </div>
                 </NavLink>
-
-                <NavLink to="/Wash-MAC-AI">
-                  <div className="d-flex justify-content-between navBar">
-                    <CDBSidebarMenuItem>Wash MAC AI (Beta)</CDBSidebarMenuItem>
-                    <CDBSidebarMenuItem>{">"}</CDBSidebarMenuItem>
-                  </div>
-                </NavLink>
               </CDBSidebarMenu>
             </CDBSidebarContent>
             <CDBSidebarFooter style={{ textAlign: "center" }}>
