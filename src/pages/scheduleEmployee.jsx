@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "../App.css";
 import { authService } from "../configs/auth";
@@ -17,12 +17,10 @@ import {
   fetchGetEmployees,
   selectEmployees,
 } from "../store/employees/indexEployeesSplice";
-import { message } from "antd";
 
 export default function ScheduleEmployee() {
   const stateEmployees = useSelector(selectEmployees);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchGetEmployees());
