@@ -145,12 +145,15 @@ export default function ScheduleEmployee() {
                 >
                   <h5 className="ms-2">{val.name}</h5>
                   <h6 className="ms-4">Schedule :</h6>
-                  <textarea
-                    className="ms-4 form-control"
-                    style={{ width: "95%", height: "auto" }}
-                    value={val.schedule}
-                    readOnly
-                  ></textarea>
+                  {Array.isArray(val.schedule) ? (
+                    <ul>
+                      {val.schedule.map((scheduleVal, idx) => (
+                        <li key={idx}>{scheduleVal.desc}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="ms-4">No schedule available</p>
+                  )}
                   <Link to={`/schedule-employee/edit/${val.id}`}>
                     <button className="btn btn-primary ms-4 mt-2 mb-2">
                       Edit
