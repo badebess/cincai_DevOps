@@ -44,28 +44,9 @@ export default function ScheduleDetailEmployee() {
   }, [stateEmployee.data]);
 
   const [nama, setNama] = useState();
-  const [alamat, setAlamat] = useState();
-  const [noHp, setNoHp] = useState();
-  const [portofolio, setPortofolio] = useState();
   const [schedule, setSchedule] = useState();
-
-  function UpdateData(e) {
-    e.preventDefault();
-    try {
-      APIEmployees.updateEmployee(id, {
-        name: nama,
-        address: alamat,
-        phoneNumber: noHp,
-        portofolio: portofolio,
-        schedule: schedule,
-      });
-      message.success("Data berhasil di update !");
-      navigate("/schedule-employee");
-    } catch (error) {
-      console.log(error);
-      message.error("Ada yang tidak benar !");
-    }
-  }
+  const [isAddable, setIsAddable] = useState();
+  const [addSchedule, setAddSchedule] = useState();
 
   return (
     <>
@@ -181,6 +162,20 @@ export default function ScheduleDetailEmployee() {
                       {schedule.map((scheduleVal, idx) => (
                         <ScheduleList key={idx} scheduleId={id} index={idx} item={scheduleVal}/>
                       ))}
+                      {isAddable ?
+                      <div className="d-flex flex-row">
+                        <input type="text" className="form-control" value={addSchedule} onChange={(e) => setAddSchedule(e.target.value)}></input>
+                        <button className="btn btn-primary mx-2 my-2" onClick={()=>
+                          APISchedule.addSchedule(id,addSchedule).then(() => navigate(0))
+                        }>Save</button>
+                      </div> : <></>
+                      }
+                      {
+                        isAddable ?
+                        <button className="btn btn-primary mt-2 form-control" disabled={true}>Add</button> :
+                        <button className="btn btn-primary mt-2 form-control" onClick={() => {setIsAddable(true)}}>Add</button>
+
+                      }
                     </ul>
                     
                   ) : (
