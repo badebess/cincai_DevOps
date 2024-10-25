@@ -18,6 +18,7 @@ import {
   fetchGetEmployeeById,
   selectEmployee,
 } from "../store/employee/indexEployeeSplice";
+import ScheduleList from "../components/scheduleList";
 
 const MIN_TEXTAREA_HEIGHT = 32;
 
@@ -175,21 +176,17 @@ export default function ScheduleDetailEmployee() {
               >
                 <h5 className="ms-2">{nama}</h5>
                 <h6 className="ms-4">Schedule :</h6>
-                <textarea
-                  className="ms-4 form-control"
-                  ref={textareaRef}
-                  style={{ width: "95%" }}
-                  rows={20}
-                  value={schedule}
-                  onChange={(e) => setSchedule(e.target.value)}
-                ></textarea>
+                  {Array.isArray(schedule) ? (
+                   <ul className="pe-4">
+                      {schedule.map((scheduleVal, idx) => (
+                        <ScheduleList key={idx} scheduleId={id} index={idx} item={scheduleVal}/>
+                      ))}
+                    </ul>
+                    
+                  ) : (
+                    <p className="ms-4">No schedule available</p>
+                  )} 
                 <div className="mb-2">
-                  <button
-                    className="btn btn-primary ms-4 mt-2"
-                    onClick={(e) => UpdateData(e)}
-                  >
-                    Save
-                  </button>
                   <Link to={"/schedule-employee"}>
                     <button className="btn btn-primary ms-2 mt-2">Back</button>
                   </Link>
