@@ -11,24 +11,20 @@ import {
   CDBSidebarMenu,
   CDBSidebarMenuItem,
 } from "cdbreact";
-import { APIEmployees } from "../apis/APIEmployees";
 import { useDispatch, useSelector } from "react-redux";
-import { message } from "antd";
 import {
   fetchGetEmployeeById,
   selectEmployee,
 } from "../store/employee/indexEployeeSplice";
 import ScheduleList from "../components/scheduleList";
+import { APISchedule } from "../apis/APISchedule";
 
-const MIN_TEXTAREA_HEIGHT = 32;
 
 export default function ScheduleDetailEmployee() {
   const stateEmployee = useSelector(selectEmployee);
   const dispatch = useDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
-  const textareaRef = useRef(null);
-
   useEffect(() => {
     dispatch(fetchGetEmployeeById(id));
   }, [dispatch, id]);
@@ -36,9 +32,6 @@ export default function ScheduleDetailEmployee() {
   useEffect(() => {
     if (stateEmployee.status === "success") {
       setNama(stateEmployee.data.name);
-      setAlamat(stateEmployee.data.address);
-      setNoHp(stateEmployee.data.phoneNumber);
-      setPortofolio(stateEmployee.data.portofolio);
       setSchedule(stateEmployee.data.schedule);
     }
   }, [stateEmployee.data]);
