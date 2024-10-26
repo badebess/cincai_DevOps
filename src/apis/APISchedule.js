@@ -29,10 +29,10 @@ import {
         throw new Error(e);
       }
     },
-    
+
     deleteScedule: async (employeId,id) => {
       try {
-        const employeeRef = doc(db, "employee", ${employeId});
+        const employeeRef = doc(db, "employee", `${employeId}`);
         const employeeSnap = await getDoc(employeeRef);
 
         if (employeeSnap.exists()) {
@@ -52,7 +52,7 @@ import {
 
     updateScedulebyId: async (employeId,id,data) => {
       try {
-        const employeeRef = doc(db, "employee", ${employeId});
+        const employeeRef = doc(db, "employee", `${employeId}`);
         const employeeSnap = await getDoc(employeeRef);
 
         if (employeeSnap.exists()) {
