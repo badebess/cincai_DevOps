@@ -1,12 +1,9 @@
 import {
-  querySnapshot,
   addDoc,
   collection,
   getDocs,
-  query,
   deleteDoc,
   doc,
-  getFirestore,
   getDoc,
   updateDoc,
 } from "firebase/firestore";

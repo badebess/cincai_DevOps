@@ -1,8 +1,5 @@
 import React, { useEffect } from "react";
-import { authService } from "../configs/auth";
-import { Link, Outlet, useLocation } from "react-router-dom";
-import { Button, Image, Row } from "antd";
-import { auth } from "../configs/firebase";
+import { Outlet, useLocation } from "react-router-dom";
 
 const breadcrumbs = [
   {
