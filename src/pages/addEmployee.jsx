@@ -192,7 +192,7 @@ export default function AddEmployee() {
                   ></input>
                 </div>
                 <label htmlFor="name" className="form-label mt-4">
-                  Portofolio
+                  Schedule
                 </label>
                 <textarea
                   className="form-control"
