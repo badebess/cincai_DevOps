@@ -1,8 +1,8 @@
-import { auth, googleProvider } from "../configs/firebase";
+import { auth } from "../configs/firebase";
 import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export const SignUp = () => {

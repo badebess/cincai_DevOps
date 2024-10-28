@@ -1,15 +1,7 @@
 import {
-    querySnapshot,
-    addDoc,
-    collection,
-    getDocs,
-    query,
-    deleteDoc,
     doc,
-    getFirestore,
     getDoc,
     updateDoc,
-    deleteField,
     arrayUnion,
   } from "firebase/firestore";
   import { db } from "../configs/firebase";

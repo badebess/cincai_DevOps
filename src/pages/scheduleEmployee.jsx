@@ -11,7 +11,6 @@ import {
   CDBSidebarMenu,
   CDBSidebarMenuItem,
 } from "cdbreact";
-import { APIEmployees } from "../apis/APIEmployees";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchGetEmployees,
