@@ -1,3 +1,3 @@
-import { AuthService } from "../services/auth.service";
+import { AuthService } from '../services/auth.service'
 
-export const authService = new AuthService();
+export const authService = new AuthService()
