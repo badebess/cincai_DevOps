@@ -1,4 +1,4 @@
-import { combineReducers, configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import persistStore from "redux-persist/lib/persistStore";
 import persistReducer from "redux-persist/lib/persistReducer";
