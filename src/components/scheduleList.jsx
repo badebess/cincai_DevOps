@@ -20,7 +20,7 @@ const ScheduleList = ({ scheduleId, item, index}) => {
 
         function handleSave() {
             setIsEditable(false);
-            APISchedule.updateScedulebyId(scheduleId,id,scheduleDesc)
+            APISchedule.updateScheduleById(scheduleId,id,scheduleDesc)
             
         }
 
