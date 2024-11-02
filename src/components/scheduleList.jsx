@@ -34,7 +34,7 @@ const ScheduleList = ({ scheduleId, item, index}) => {
                     <button className="btn mx-2 my-2 btn-success" onClick={handleEdit}>Update</button>
                 }
                 <button className="btn btn-danger mx-2 my-2" onClick={() =>
-                    APISchedule.deleteScedule(scheduleId,id).then(() => navigate(0))
+                    APISchedule.deleteSchedule(scheduleId,id).then(() => navigate(0))
                 
                 }>X</button>
         </li>
