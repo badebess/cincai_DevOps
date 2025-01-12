@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "../App.css";
 import { authService } from "../configs/auth";
@@ -13,33 +13,17 @@ import {
 } from "cdbreact";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchGetEmployeeById,
-  selectEmployee,
-} from "../store/employee/indexEployeeSplice";
-import ScheduleList from "../components/scheduleList";
-import { APISchedule } from "../apis/APISchedule";
+  fetchGetEmployees,
+  selectEmployees,
+} from "../store/employees/indexEployeesSplice";
 
-
-export default function ScheduleDetailEmployee() {
-  const stateEmployee = useSelector(selectEmployee);
+export default function ScheduleEmployee() {
+  const stateEmployees = useSelector(selectEmployees);
   const dispatch = useDispatch();
-  const { id } = useParams();
-  const navigate = useNavigate();
-  useEffect(() => {
-    dispatch(fetchGetEmployeeById(id));
-  }, [dispatch, id]);
 
   useEffect(() => {
-    if (stateEmployee.status === "success") {
-      setNama(stateEmployee.data.name);
-      setSchedule(stateEmployee.data.schedule);
-    }
-  }, [stateEmployee.data]);
-
-  const [nama, setNama] = useState();
-  const [schedule, setSchedule] = useState();
-  const [isAddable, setIsAddable] = useState();
-  const [addSchedule, setAddSchedule] = useState();
+    dispatch(fetchGetEmployees());
+  }, [dispatch.employeesData]);
 
   return (
     <>
@@ -82,11 +66,16 @@ export default function ScheduleDetailEmployee() {
                 </NavLink>
                 
                 <NavLink to="/schedule-employee">
-                  <div className="d-flex justify-content-between navBar">
+                  <div
+                    className="d-flex justify-content-between navBar"
+                    style={{ backgroundColor: "#3A4750" }}
+                  >
                     <CDBSidebarMenuItem>Schedule</CDBSidebarMenuItem>
                     <CDBSidebarMenuItem>{">"}</CDBSidebarMenuItem>
                   </div>
                 </NavLink>
+                
+                
               </CDBSidebarMenu>
             </CDBSidebarContent>
             <CDBSidebarFooter style={{ textAlign: "center" }}>
@@ -136,51 +125,39 @@ export default function ScheduleDetailEmployee() {
               backgroundColor: "#D9D9D9",
               height: "100%",
               position: "fixed",
-              width: "79%",
+              width: "77%",
             }}
           >
             <div className="ps-2 mb-3 py-1">
-              <h2 className="mb-1">Employee Schedule Edit</h2>
+              <h2 className="mb-1">Employee Schedule</h2>
             </div>
-            {stateEmployee.status === "loading" && <p>Loading</p>}
-            {stateEmployee.status === "success" && (
-              <div
-                style={{ backgroundColor: "rgba(238, 238, 238, 0.93)" }}
-                className="mx-4 mt-1 border"
-              >
-                <h5 className="ms-2">{nama}</h5>
-                <h6 className="ms-4">Schedule :</h6>
-                  {Array.isArray(schedule) ? (
-                   <ul className="pe-4">
-                      {schedule.map((scheduleVal, idx) => (
-                        <ScheduleList key={idx} scheduleId={id} index={idx} item={scheduleVal}/>
+            {stateEmployees.status === "loading" && <p>Loading</p>}
+            {stateEmployees.status === "success" &&
+              stateEmployees.data &&
+              stateEmployees.data.data.map((val, index) => (
+                <div
+                  style={{ backgroundColor: "rgba(238, 238, 238, 0.93)" }}
+                  className="mx-4 mt-1 border"
+                  key={index}
+                >
+                  <h5 className="ms-2">{val.name}</h5>
+                  <h6 className="ms-4">Schedule :</h6>
+                  {Array.isArray(val.schedule) ? (
+                    <ul>
+                      {val.schedule.map((scheduleVal, idx) => (
+                        <li key={idx}>{scheduleVal.desc}</li>
                       ))}
-                      {isAddable ?
-                      <div className="d-flex flex-row">
-                        <input type="text" className="form-control" value={addSchedule} onChange={(e) => setAddSchedule(e.target.value)}></input>
-                        <button className="btn btn-primary mx-2 my-2" onClick={()=>
-                          APISchedule.addSchedule(id,addSchedule).then(() => navigate(0))
-                        }>Save</button>
-                      </div> : <></>
-                      }
-                      {
-                        isAddable ?
-                        <button className="btn btn-primary mt-2 form-control" disabled={true}>Add</button> :
-                        <button className="btn btn-primary mt-2 form-control" onClick={() => {setIsAddable(true)}}>Add</button>
-
-                      }
                     </ul>
-                    
                   ) : (
                     <p className="ms-4">No schedule available</p>
-                  )} 
-                <div className="mb-2">
-                  <Link to={"/schedule-employee"}>
-                    <button className="btn btn-primary ms-2 mt-2">Back</button>
+                  )}
+                  <Link to={`/schedule-employee/edit/${val.id}`}>
+                    <button className="btn btn-primary ms-4 mt-2 mb-2">
+                      Edit
+                    </button>
                   </Link>
                 </div>
-              </div>
-            )}
+              ))}
           </div>
         </div>
       </div>

@@ -1,7 +1,6 @@
 import {
   addDoc,
   collection,
-  getDocs,
   deleteDoc,
   doc,
   getDoc,
@@ -9,51 +8,48 @@ import {
 } from 'firebase/firestore'
 import { db } from '../configs/firebase'
 import { message } from 'antd'
+import axios from 'axios'
 
 export const APIEmployees = {
   getEmployees: async () => {
     try {
-      const result = await getDocs(collection(db, 'employee'))
-      const employees = result.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }))
-      return employees
+      const result = await axios.get("http://localhost:3001/get-data/employee")
+      return result
     } catch (error) {
       message.error('Login failed. Your email or password is wrong!')
     }
   },
   getEmployeeById: async (id) => {
     try {
-      const docRef = doc(db, 'employee', id)
-      const docSnap = await getDoc(docRef)
-      const result = docSnap.data()
-      return result
+      const result = await axios.get(`http://localhost:3001/get-data/employee/${id}`)
+      return result.data
     } catch (error) {
       throw new Error(error)
     }
   },
   addEmployee: async (employee) => {
     try {
-      const employeeRef = await addDoc(collection(db, 'employee'), employee)
-      return employeeRef
+      const result = await axios.post(`http://localhost:3001/add-data`, employee)
+      return result.data
+      alert('Successfully add employee')
     } catch (e) {
       throw new Error(e)
     }
   },
   deleteEmployee: async (id) => {
     try {
-      const employeeRef = doc(db, 'employee', id)
-      await deleteDoc(employeeRef)
+      const result = await axios.delete(`http://localhost:3001/delete-employee/${id}`)
       alert('Successfully deleted employee')
+      return result.data
     } catch (e) {
       throw new Error(e)
     }
   },
   updateEmployee: async (id, data) => {
     try {
-      const docRef = doc(db, 'employee', id)
-      await updateDoc(docRef, data)
+      const result = await axios.put(`http://localhost:3001/update-employee/${id}`, data)
+      alert('Successfully deleted employee')
+      return result.data
     } catch (error) {
       throw new Error(error)
     }
