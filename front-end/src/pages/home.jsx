@@ -137,6 +137,7 @@ export default function Home() {
                 </tr>
               </thead>
               <tbody>
+                
                 {stateEmployees.status === "loading" && (
                   <tr>
                     <td>
@@ -147,9 +148,21 @@ export default function Home() {
                   </tr>
                 )}
 
+                {stateEmployees.status === "success" && !stateEmployees.data &&
+                (  
+                  <tr>
+                    <td>
+                      <p style={{ width: "100%" }} className="text-center">
+                        data tidak ditemukan
+                      </p>
+                    </td>
+                  </tr>
+                )
+                }
+
                 {stateEmployees.status === "success" &&
                   stateEmployees.data &&
-                  stateEmployees.data.map((val, index) => (
+                  stateEmployees.data.data.map((val, index) => (
                     <tr
                       val={val}
                       key={index}
@@ -177,7 +190,8 @@ export default function Home() {
                         </button>
                       </td>
                     </tr>
-                  ))}
+                  ))
+                  }
               </tbody>
             </table>
           </div>
