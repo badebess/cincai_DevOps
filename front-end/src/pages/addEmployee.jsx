@@ -45,7 +45,6 @@ export default function AddEmployee() {
           portofolio: portofoiio,
           schedule: schedule,
         });
-        message.success("created employee successful");
         navigate("/");
       }
     } catch (error) {
